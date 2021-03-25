@@ -12,7 +12,6 @@ const commentSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: "User"
   },
-  score: Number,
 });
 
 module.exports = mongoose.Model("Comment", commentSchema);

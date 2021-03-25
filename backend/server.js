@@ -1,7 +1,4 @@
 const express = require('express');
-const dotenv = require('dotenv');
-const mongoose = require('mongoose');
-
 const app = express();
 
 
@@ -15,13 +12,15 @@ app.use("/comment", commentRoute);
 
 
 // ENV Variables SETUP
-dotenv.config();
+require('dotenv').config();
 
 
 // MONGODB SETUP
+const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGOURI, {useNewUrlParser: true, useUnifiedTopology:true})
   .then(res => console.log("DB Connected"))
   .catch(err => console.log(err));
+
 
 // SERVER SETUP
 app.listen(process.env.PORT, () => {
