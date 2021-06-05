@@ -1,4 +1,6 @@
 import express from 'express';
+import mongoose from 'mongoose';
+
 import userDB from "../db/UserModel.js";
 
 const router = express.Router();

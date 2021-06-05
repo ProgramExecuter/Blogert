@@ -52,11 +52,7 @@ const userSchema = new mongoose.Schema({
       type: mongoose.Types.ObjectId,
       ref: "Comment"
     }
-  ],
-  score: {
-    type: Number,
-    default: 0
-  }
+  ]
 });
 
 export default mongoose.model("User", userSchema);

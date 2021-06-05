@@ -26,11 +26,7 @@ const postSchema = new mongoose.Schema({
   },
   tags: [{
     type: String
-  }],
-  score: {
-    type: Number,
-    default: 0
-  }
+  }]
 });
 
 export default mongoose.model("Post", postSchema);
