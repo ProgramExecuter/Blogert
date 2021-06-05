@@ -1,4 +1,5 @@
-const express = require('express');
+import express from 'express';
+
 const router = express.Router();
 
 
@@ -31,4 +32,4 @@ router.delete("/:post_id", (req, res) => {
   res.send("Post Deleted");
 });
 
-module.exports = router;
+export default router;

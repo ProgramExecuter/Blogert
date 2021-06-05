@@ -1,8 +1,7 @@
-const express = require('express');
-const router = express.Router();
+import express from 'express';
+import userDB from "../db/UserModel.js";
 
-// Importing User Model
-const userDB = require("../db/UserModel");
+const router = express.Router();
 
 
 // Create a new User
@@ -29,4 +28,4 @@ router.delete("/:user_info", (req, res) => {
 });
 
 
-module.exports = router;
+export default router;
