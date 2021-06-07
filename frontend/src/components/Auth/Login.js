@@ -8,14 +8,12 @@ const Login = () => {
         <h1>Login</h1>
         <div class="login__textbox">
           <i class="fas fa-user"></i>
-          <input type="text" placeholder="Username" />
+          <input type="text" placeholder="Username" name="input[username]"/>
         </div>
-
         <div class="login__textbox">
           <i class="fas fa-lock"></i>
-          <input type="password" placeholder="Password" />
+          <input type="password" placeholder="Password" name="input[password]"/>
         </div>
-
         <input type="button" class="login__btn" value="Sign in" />
       </div>
     </div>
