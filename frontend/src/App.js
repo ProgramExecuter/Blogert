@@ -2,8 +2,8 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 import Home     from './components/Home/Home.js';
-import Login    from './components/Login/Login.js';
-import SignUp   from './components/SignUp/SignUp.js';
+import Login    from './components/Auth/Login.js';
+import SignUp   from './components/Auth/SignUp.js';
 import Post     from './components/Post/Post.js';
 import User     from './components/User/User.js';
 import EditPost from './components/Post/EditPost.js';
@@ -12,7 +12,6 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <div>
           <Switch>
             <Route exact path="/">
               <Home />
@@ -36,7 +35,6 @@ function App() {
               <h1>404</h1>
             </Route>
           </Switch>
-        </div>
       </Router>
     </div>
   );
