@@ -11,6 +11,7 @@ import commentRoute  from './routes/CommentRoute.js';
 //APP CONFIGS
 const app = express();
 cors();
+app.use(express.json());
 
 
 // ROUTES
