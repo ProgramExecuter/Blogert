@@ -1,0 +1,55 @@
+.post {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #000000;
+  background-image: linear-gradient(315deg, #000000 23%, #414141 74%);
+  color: #dddddd;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.post__header {
+  text-align: center;
+  border-bottom: 0.1rem solid gray;
+  padding: 1rem 0;
+}
+
+.post__info {
+  width: 90vw;
+  margin: auto;
+}
+
+.post__info__image {
+  display: block;
+  width: 100%;
+  object-fit: contain;
+  margin: 1rem auto;
+}
+
+.post__info__content {
+  margin-bottom: 1rem;
+  /* padding: 1rem; */
+}
+
+.post__info__content__user {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 1.5rem;
+  margin-right: 0.75rem;
+}
+
+.post__info__comments {
+  width: 100%;
+  border: 0.1rem solid gray;
+  padding: 1rem;
+  margin: 1rem auto;
+  box-sizing: border-box;
+}
+
+.post__info__comments > p {
+  margin-bottom: 0.5rem;
+}
+
+.post__info__comments > p > b {
+  margin-right: 0.5rem;
+  font-size: 1.1rem;
+}
