@@ -28,13 +28,21 @@
 
 .post__info__content {
   margin-bottom: 1rem;
-  /* padding: 1rem; */
 }
 
 .post__info__content__user {
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 1.5rem;
   margin-right: 0.75rem;
+}
+
+.post__info__content__user > span {
+  margin-right: 1rem;
+  color:gold;
+}
+
+.post__info__content__user > span > span {
+  color: red;
 }
 
 .post__info__comments {
@@ -52,4 +60,13 @@
 .post__info__comments > p > b {
   margin-right: 0.5rem;
   font-size: 1.1rem;
+}
+
+.post__info__comments > p > b > span {
+  margin-right: 1rem;
+  color:darkturquoise
+}
+
+.post__info__comments > p > b > span > span {
+  color: red
 }

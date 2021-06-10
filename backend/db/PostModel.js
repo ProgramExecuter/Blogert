@@ -23,10 +23,7 @@ const postSchema = new mongoose.Schema({
   user: {
     type: mongoose.Types.ObjectId,
     ref: "User"
-  },
-  tags: [{
-    type: String
-  }]
+  }
 });
 
 export default mongoose.model("Post", postSchema);
