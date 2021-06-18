@@ -10,7 +10,7 @@ import commentRoute  from './routes/CommentRoute.js';
 
 //APP CONFIGS
 const app = express();
-cors();
+app.use(cors());
 app.use(express.json());
 
 
