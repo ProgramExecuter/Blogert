@@ -5,7 +5,7 @@ const SignUp = () => {
   return (
     <div className="container">
       <div className="signup">
-      <h1>Sign Up</h1>
+        <h1>Sign Up</h1>
         <div className="signup__textbox">
           <i className="fas fa-user"></i>
           <input type="text" placeholder="Username" name="input[username]" />
