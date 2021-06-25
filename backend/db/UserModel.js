@@ -5,18 +5,18 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: [true, "Please Enter a Username"],
-    unique: true,
-    lowercase: true
+    unique: [true, "This username is taken"],
+    lowercase: [true, "Username should be all lowercase"]
   },
   email: {
     type: String,
     required: [true, "Please Enter an Email"],
-    unique: true,
+    unique: [true, "This email is already taken"],
     validate: [isEmail, "Please enter an valid email"]
   },
   password: {
-    type: [true, "Please Enter the Password"],
-    required: true,
+    type: String,
+    required: [true, "Please Enter the Password"],
     minlength: [6, "Password should have atleast 6 characters"]
   },
   name: {
