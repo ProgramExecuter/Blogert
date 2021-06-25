@@ -7,6 +7,15 @@ const router = express.Router();
 
 const saltRounds = 10;
 
+//For 3 days(in seconds)
+const maxAge = 3 * 24 * 60 * 60;
+
+const createToken = (id) => {
+  return jwt.sign({id}, process.env.SECRET, {
+    expiresIn: maxAge
+  });
+};
+
 
 // Create a new User
 router.post("/", async (req, res) => {
@@ -20,7 +29,16 @@ router.post("/", async (req, res) => {
       const user = new userDB(req.body);
 
       await user.save()
-        .then(newUser => res.status(200).json(newUser))
+        .then(newUser => {
+          try {
+            const token = createToken(newUser._id);
+            res.cookie('jwt', token, { maxAge: maxAge*1000 });
+          }
+          catch(err) {
+            res.status(400).json(err);
+          }
+          res.status(200).json(newUser)
+        })
         .catch(err => res.status(400).json(err));
     }
   })

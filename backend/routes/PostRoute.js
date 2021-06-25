@@ -1,4 +1,5 @@
 import express from 'express';
+import jwt from 'jsonwebtoken';
 import postDB from '../db/PostModel.js';
 
 const router = express.Router();
@@ -9,9 +10,9 @@ router.get("/", (req, res) => {
 
   postDB.find({}, (err, foundPosts) => {
     if(err) {
-      console.log(err);
+      res.status(400).json(err);
     } else {
-      res.status(200).send(foundPosts);
+      res.status(200).json(foundPosts);
     }
   });
 
@@ -19,59 +20,58 @@ router.get("/", (req, res) => {
 
 
 // Create a new Post
-router.post("/", (req, res) => {
-  
-  let newPost = req.body.input;
-  postDB.create(newPost, (err, createdPost) => {
-    if(err) {
-      console.log(err);
-      res.status(503);
-    } else {
-      res.status(201).send("Created");
-    }
-  });
+router.post("/", async (req, res) => {
+
+  const newPost = new postDB(req.body);
+
+  await newPost.save()
+    .then(post => res.status(200).json(post))
+    .catch(err => res.status(400).json(err));
 
 });
 
 
 // Get a particular Post
-router.get("/:post_id", (req, res) => {
+router.get("/:post_id", async (req, res) => {
   
-  postDB.findById(req.params.post_id, (err, foundPost) => {
+  await postDB.findById(req.params.post_id, (err, foundPost) => {
     if(err) {
-      res.status(404);
+      res.status(404).json(err);
     } else {
-      res.status(200).send(foundPost);
+      res.status(200).json(foundPost);
     }
-  });
+  })
+  .catch(err => res.status(400).json(err));
 
 });
 
 
 // Edit a particular Post
-router.put("/:post_id", (req, res) => {
+router.put("/:post_id", async (req, res) => {
   
-  postDB.findOneAndUpdate(req.params.post_id, req.body.input, (err, updatedCampground) => {
+  await postDB.findOneAndUpdate(req.params.post_id, {$set: req.body}, (err, updatedCampground) => {
     if(err) {
-        res.status(502);
+        res.status(502).json(err);
     } else {
-        res.status(200).send("Updated");
+        res.status(200).json(updatedCampground);
     }
-  });
+  })
+  .catch(err => res.status(400).json(err));
 
 });
 
 
 // Delete a particular Post
-router.delete("/:post_id", (req, res) => {
+router.delete("/:post_id", async (req, res) => {
   
-  postDB.findByIdAndRemove(req.params.post_id, (err) => {
+  await postDB.findByIdAndRemove(req.params.post_id, (err) => {
     if(err) {
-      res.status(502);
+      res.status(502).json(err);
     } else {
-      res.status(200).send("Deleted");
+      res.status(200).json({"message": "Post Deleted"});
     }
-  });
+  })
+  .catch(err => res.status(400).json(err));
 
 });
 
