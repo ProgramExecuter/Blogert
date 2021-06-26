@@ -1,5 +1,5 @@
 import React from 'react';
-import './User.css';
+import './user.css';
 
 const User = () => {
   return (
@@ -7,6 +7,6 @@ const User = () => {
       <h1>Particular User</h1>
     </div>
   );
-}
+};
 
 export default User;

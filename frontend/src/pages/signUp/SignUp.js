@@ -1,5 +1,5 @@
 import countries from '../../assets/countryInfo';
-import './SignUp.css';
+import './signUp.css';
 
 const SignUp = () => {
   return (

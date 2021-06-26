@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import './EditPost.css';
+import './editPost.css';
 
 const EditPost = () => {
   const { postId } = useParams();
@@ -24,7 +24,6 @@ const EditPost = () => {
       <input type="file" />
     </div>
   );
-
-}
+};
 
 export default EditPost;

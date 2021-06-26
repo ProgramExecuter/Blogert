@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import './Post.css';
+import './post.css';
 import { useParams } from 'react-router';
 
 const Post = () => {
-
   const { postId } = useParams();
 
   const [data, setData] = useState({});
@@ -48,6 +47,6 @@ const Post = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Post;

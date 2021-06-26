@@ -1,5 +1,5 @@
 import React from 'react';
-import './Login.css';
+import './login.css';
 
 const Login = () => {
   return (
@@ -18,6 +18,6 @@ const Login = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Login;
