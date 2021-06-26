@@ -12,10 +12,12 @@ const commentSchema = new mongoose.Schema({
       ref: "User"
     }
   ],
-  user: {
+  username: {
     type: String,
-    required: [true, "Please enter the username"]
-  },
+    required: [true, "Please Enter a Username"],
+    unique: [true, "This username is taken"],
+    lowercase: [true, "Username should be all lowercase"]
+  }
 });
 
 export default mongoose.model("Comment", commentSchema);

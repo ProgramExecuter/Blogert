@@ -14,7 +14,8 @@ router.get("/", (req, res) => {
     } else {
       res.status(200).json(foundPosts);
     }
-  });
+  })
+  .catch(e => res.status(400).json(e));
 
 });
 

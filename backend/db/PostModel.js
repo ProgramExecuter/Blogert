@@ -13,6 +13,12 @@ const postSchema = new mongoose.Schema({
     minlength: [4, "Caption should be minimum of 4 characters"]
   },
   picture: String,
+  username: {
+    type: String,
+    required: [true, "Please Enter a Username"],
+    unique: [true, "This username is taken"],
+    lowercase: [true, "Username should be all lowercase"]
+  },
   post_date: {
     type: Date,
     default: Date.now
@@ -28,11 +34,7 @@ const postSchema = new mongoose.Schema({
       type: mongoose.Types.ObjectId,
       ref: "Comment"
     }
-  ],
-  user: {
-    type: mongoose.Types.ObjectId,
-    ref: "User"
-  }
+  ]
 });
 
 export default mongoose.model("Post", postSchema);
