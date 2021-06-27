@@ -4,7 +4,7 @@ import './homePage.css';
 const HomePage = () => {
   return (
     <div>
-      HOME
+      Grid of Posts
     </div>
   );
 };

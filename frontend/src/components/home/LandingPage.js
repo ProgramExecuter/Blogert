@@ -4,7 +4,7 @@ import './landingPage.css';
 const LandingPage = () => {
   return (
     <div>
-      Grid of Posts
+      This is advertisement
     </div>
   );
 };
