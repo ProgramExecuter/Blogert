@@ -4,9 +4,10 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
-import userRoute     from './routes/UserRoute.js';
-import postRoute     from './routes/PostRoute.js';
-import commentRoute  from './routes/CommentRoute.js';
+import userRoute      from './routes/userRoute.js';
+import postRoute      from './routes/postRoute.js';
+import commentRoute   from './routes/commentRoute.js';
+import authRoute      from './routes/authRoute.js';
 
 
 //APP CONFIGS
@@ -20,6 +21,7 @@ app.use(cookieParser());
 app.use("/user", userRoute);
 app.use("/post", postRoute);
 app.use("/comment", commentRoute);
+app.use("/auth", authRoute);
 
 
 // ENV Variables SETUP

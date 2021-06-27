@@ -1,50 +1,7 @@
 import express from 'express';
-import bcrypt from 'bcrypt';
-
-import userDB from "../db/UserModel.js";
+import userDB from "../db/userModel.js";
 
 const router = express.Router();
-
-const saltRounds = 10;
-
-//For 3 days(in seconds)
-const maxAge = 3 * 24 * 60 * 60;
-
-const createToken = (id) => {
-  return jwt.sign({id}, process.env.SECRET, {
-    expiresIn: maxAge
-  });
-};
-
-
-// Create a new User
-router.post("/", async (req, res) => {
-
-  await bcrypt.hash(req.body.password, saltRounds, async (err, hash) => {
-    if(err) {
-      res.status(400).json(err);
-    }
-    else {
-      req.body.password = hash;
-      const user = new userDB(req.body);
-
-      await user.save()
-        .then(newUser => {
-          try {
-            const token = createToken(newUser._id);
-            res.cookie('jwt', token, { maxAge: maxAge*1000 });
-          }
-          catch(err) {
-            res.status(400).json(err);
-          }
-          res.status(200).json(newUser)
-        })
-        .catch(err => res.status(400).json(err));
-    }
-  })
-  .catch(err => res.status(400).json(err));
-});
-
 
 // Get a particular User
 router.get("/:user_id", async (req, res) => {

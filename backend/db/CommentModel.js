@@ -16,7 +16,8 @@ const commentSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please Enter a Username"],
     unique: [true, "This username is taken"],
-    lowercase: [true, "Username should be all lowercase"]
+    lowercase: [true, "Username should be all lowercase"],
+    minlength: [2, "Username should atleast have 2 characters"]
   }
 });
 

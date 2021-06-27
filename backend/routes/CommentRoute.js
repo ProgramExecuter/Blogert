@@ -1,7 +1,6 @@
 import express from 'express';
-import mongoose from 'mongoose';
 
-import commentDB from '../db/CommentModel.js';
+import commentDB from '../db/commentModel.js';
 
 const router = express.Router();
 

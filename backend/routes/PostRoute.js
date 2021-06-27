@@ -1,6 +1,5 @@
 import express from 'express';
-import jwt from 'jsonwebtoken';
-import postDB from '../db/PostModel.js';
+import postDB from '../db/postModel.js';
 
 const router = express.Router();
 
