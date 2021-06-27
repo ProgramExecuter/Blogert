@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 import Home       from '../pages/home/Home.js';
 import Login      from '../pages/login/Login.js';
-import SignUp     from '../pages/signUp/SignUp.js';
+import SignUp     from '../pages/signup/SignUp.js';
 import Post       from '../pages/post/Post.js';
 import User       from '../pages/user/User.js';
 import EditPost   from '../pages/editPost/EditPost.js';
