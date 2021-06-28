@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import createToken from '../../utils/createToken';
 import setCookie from '../../utils/setCookie';
+import { backend } from '../../utils/firebase';
 import './login.css';
 
 const Login = () => {
@@ -14,7 +15,7 @@ const Login = () => {
 
     const req = await axios({
       method: 'post',
-      url: 'http://localhost:2000/auth/login',
+      url: `${backend}/auth/login`,
       data: {
         username,
         password

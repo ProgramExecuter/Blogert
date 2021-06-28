@@ -4,6 +4,7 @@ import countries from '../../utils/countryInfo';
 import './signUp.css';
 import createToken from '../../utils/createToken';
 import setCookie from '../../utils/setCookie';
+import { backend } from '../../utils/firebase';
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
@@ -18,7 +19,7 @@ const SignUp = () => {
 
     const req = await axios({
       method: 'post',
-      url: 'http://localhost:2000/auth/signup',
+      url: `${backend}/auth/signup`,
       data: {
         username,
         email,

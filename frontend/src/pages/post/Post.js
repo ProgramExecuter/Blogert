@@ -4,6 +4,7 @@ import './post.css';
 import { useParams } from 'react-router';
 import ParticularPost from '../../components/post/ParticularPost';
 import Error from '../../components/error/Error';
+import {backend} from '../../utils/firebase';
 
 const Post = () => {
   const { postId } = useParams();
@@ -11,7 +12,7 @@ const Post = () => {
   const [data, setData] = useState({});
   
   const getPost = async () => {
-    const response = await axios.get(`http://localhost:2000/post/${postId}`);
+    const response = await axios.get(`${backend}/post/${postId}`);
     setData(response.data);
   };
 

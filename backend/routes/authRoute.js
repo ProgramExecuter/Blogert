@@ -61,6 +61,7 @@ router.post("/login", async (req, res) => {
           try {
             const token = createToken(foundUser._id);
             res.cookie('jwt', token, { maxAge: maxAge*1000 });
+            res.status(200).json(foundUser);
           }
           catch(err) {
             res.status(400).json(err);
