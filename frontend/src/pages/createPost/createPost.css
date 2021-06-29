@@ -2,7 +2,7 @@
   padding-top: 50px;
 }
 
-.writeImg {
+.write__img {
   margin-left: 150px;
   width: 70vw;
   height: 250px;
@@ -10,11 +10,11 @@
   object-fit: cover;
 }
 
-.writeForm {
+.write__form {
   position: relative;
 }
 
-.writeFormGroup {
+.write__form__group {
   margin-left: 150px;
   display: flex;
   align-items: center;
@@ -49,7 +49,7 @@
   height: 100vh;
 }
 
-.writeSubmit {
+.write__form__submit {
   position: absolute;
   top: 20px;
   right: 50px;

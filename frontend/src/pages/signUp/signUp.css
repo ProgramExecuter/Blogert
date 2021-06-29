@@ -1,5 +1,5 @@
 @import "https://use.fontawesome.com/releases/v5.5.0/css/all.css";
-.container {
+.signup {
   height: 100vh;
   margin: 0;
   padding: 0;
@@ -8,7 +8,19 @@
   background-size: cover;
 }
 
-.signup {
+.signup__signupBox h1{
+  float: left;
+  font-size: 40px;
+  border-bottom: 6px solid #4caf50;
+  margin-bottom: 50px;
+  padding: 13px 0;
+}
+
+label {
+  display: block;
+}
+
+.signup__signupBox {
   width: 90%;
   max-width: 25rem;
   position: absolute;
@@ -18,15 +30,7 @@
   color: white;
 }
 
-.signup h1{
-  float: left;
-  font-size: 40px;
-  border-bottom: 6px solid #4caf50;
-  margin-bottom: 50px;
-  padding: 13px 0;
-}
-
-.signup__textbox {
+.signup__signupBox__textbox {
   width: 100%;
   overflow: hidden;
   font-size: 20px;
@@ -35,13 +39,13 @@
   border-bottom: 1px solid #4caf50;
 }
 
-.signup__textbox i{
+.signup__signupBox__textbox i{
   width: 26px;
   float: left;
   text-align: center;
 }
 
-.signup__textbox input, select {
+.signup__signupBox__textbox input, select {
   border: none;
   outline: none;
   background: none;
@@ -52,11 +56,11 @@
   margin: 0 10px;
 }
 
-.signup__textbox select > option {
+.signup__signupBox__textbox select > option {
   background-color: #001B3B;
 }
 
-.signup__btn {
+.signup__signupBox__btn {
   width: 100%;
   background: none;
   border: 2px solid #4caf50;

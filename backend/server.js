@@ -6,7 +6,6 @@ import cookieParser from 'cookie-parser';
 
 import userRoute      from './routes/userRoute.js';
 import postRoute      from './routes/postRoute.js';
-import commentRoute   from './routes/commentRoute.js';
 import authRoute      from './routes/authRoute.js';
 
 
@@ -20,7 +19,6 @@ app.use(cookieParser());
 // ROUTES
 app.use("/user", userRoute);
 app.use("/post", postRoute);
-app.use("/comment", commentRoute);
 app.use("/auth", authRoute);
 
 

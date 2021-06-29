@@ -40,10 +40,10 @@ const CreatePost = () => {
   return (
     <div className="write">
       {file && (
-        <img className="writeImg" src={URL.createObjectURL(file)} alt="" />
+        <img className="write__img" src={URL.createObjectURL(file)} alt="" />
       )}
-      <form className="writeForm" onSubmit={handleSubmit}>
-        <div className="writeFormGroup">
+      <form className="write__form" onSubmit={handleSubmit}>
+        <div className="write__form__group">
           <label htmlFor="fileInput">
             <i className="writeIcon fas fa-plus"></i>
           </label>
@@ -52,6 +52,7 @@ const CreatePost = () => {
             id="fileInput"
             style={{ display: "none" }}
             onChange={(e) => setFile(e.target.files[0])}
+            required
           />
           <input
             type="text"
@@ -61,9 +62,10 @@ const CreatePost = () => {
             autoFocus={true}
             value={title}
             onChange={e=>setTitle(e.target.value)}
+            required
           />
         </div>
-        <div className="writeFormGroup">
+        <div className="write__form__group">
           <textarea
             placeholder="Tell your story..."
             type="text"
@@ -71,9 +73,10 @@ const CreatePost = () => {
             className="writeInput writeText"
             value={caption}
             onChange={e=>setCaption(e.target.value)}
+            required
           ></textarea>
         </div>
-        <button className="writeSubmit" type="submit">
+        <button className="write__form__submit" type="submit">
           Publish
         </button>
       </form>

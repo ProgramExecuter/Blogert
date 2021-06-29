@@ -1,15 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {useParams} from 'react-router';
 import axios from "axios";
 import {storage, backend} from '../../utils/firebase';
-import './editPost.css';
+import '../createPost/createPost.css';
 
-const EditPost = ({data}) => {
+const EditPost = () => {
   const { postId } = useParams();
+  
+  const [data, setData] = useState({});
+  const [title, setTitle] = useState("");
+  const [caption, setCaption] = useState("");
+  const [picture, setPicture] = useState("");
 
-  const [title, setTitle] = useState(data.title);
-  const [caption, setCaption] = useState(data.caption);
-  const [picture, setPicture] = useState(data.picture);
+  const getPost = async () => {
+    const response = await axios.get(`${backend}/post/${postId}`);
+    setData(response.data);
+    setTitle(response.data.title);
+    setPicture(response.data.url);
+    setCaption(response.data.caption);
+  };
+
+  useEffect(() => {
+    getPost();
+  }, []);
 
   const [file, setFile] = useState(null);
 
@@ -41,8 +54,8 @@ const EditPost = ({data}) => {
     }
     else {
       await axios({
-        method: 'post',
-        url: `http://localhost:2000/post/${postId}/edit`,
+        method: 'put',
+        url: `http://localhost:2000/post/${postId}`,
         data: {
           title,
           caption,
@@ -56,13 +69,13 @@ const EditPost = ({data}) => {
   return (
     <div className="write">
       <img
-        className="writeImg"
+        className="write__img"
         src={
           file ? URL.createObjectURL(file) : data.picture
         }
       alt="" />
-      <form className="writeForm" onSubmit={handleSubmit}>
-        <div className="writeFormGroup">
+      <form className="write__form" onSubmit={handleSubmit}>
+        <div className="write__form__group">
           <label htmlFor="fileInput">
             <i className="writeIcon fas fa-plus"></i>
           </label>
@@ -77,12 +90,13 @@ const EditPost = ({data}) => {
             placeholder="Title"
             className="writeInput"
             name="title"
-            autoFocus={true}
+            // autoFocus={true}
             value={title}
             onChange={e=>setTitle(e.target.value)}
+            required
           />
         </div>
-        <div className="writeFormGroup">
+        <div className="write__form__group">
           <textarea
             placeholder="Tell your story..."
             type="text"
@@ -90,9 +104,10 @@ const EditPost = ({data}) => {
             className="writeInput writeText"
             value={caption}
             onChange={e=>setCaption(e.target.value)}
+            required
           ></textarea>
         </div>
-        <button className="writeSubmit" type="submit">
+        <button className="write__form__submit" type="submit">
           Publish
         </button>
       </form>

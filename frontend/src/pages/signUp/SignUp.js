@@ -17,7 +17,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const req = await axios({
+    await axios({
       method: 'post',
       url: `${backend}/auth/signup`,
       data: {
@@ -38,12 +38,16 @@ const SignUp = () => {
   };
 
   return (
-    <div className="container">
-      <div className="signup">
+    <div className="signup">
+      <form className="signup__signupBox" onSubmit={handleSubmit}>
         <h1>Sign Up</h1>
-        <div className="signup__textbox">
+        <label
+          for="signup__username"
+          className="signup__signupBox__textbox"
+        >
           <i className="fas fa-user"></i>
           <input
+            id="signup__username"
             type="text" 
             placeholder="Username" 
             name="username"
@@ -51,10 +55,14 @@ const SignUp = () => {
             onChange={(e) => setUsername(e.target.value)}
             required
             />
-        </div>
-        <div className="signup__textbox">
+        </label>
+        <label
+          for="signup__email" 
+          className="signup__signupBox__textbox"
+        >
           <i className="fas fa-lock"></i>
           <input 
+            id="signup__email" 
             type="email" 
             placeholder="Email" 
             name="email"
@@ -62,10 +70,14 @@ const SignUp = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </div>
-        <div className="signup__textbox">
+        </label>
+        <label
+          for="signup__password"
+          className="signup__signupBox__textbox"
+        >
           <i className="fas fa-lock"></i>
           <input 
+            id="signup__password"
             type="password" 
             placeholder="Password" 
             name="password" 
@@ -73,30 +85,42 @@ const SignUp = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
             />
-        </div>
-        <div className="signup__textbox">
+        </label>
+        <label
+          for="signup__name"
+          className="signup__signupBox__textbox"
+        >
           <i className="fas fa-lock"></i>
           <input 
+            id="signup__name"
             type="text" 
             placeholder="Full Name" 
             name="name"
             value={name}
             onChange={(e) => setName(e.target.value)} 
             />
-        </div>
-        <div className="signup__textbox">
+        </label>
+        <label
+          for="signup__status"
+          className="signup__signupBox__textbox"
+        >
           <i className="fas fa-lock"></i>
           <input 
+            id="signup__status"
             type="text" 
             placeholder="Tell community about Yourself" 
             name="status" 
             value={status}
             onChange={(e) => setStatus(e.target.value)}
             />
-        </div>
-        <div className="signup__textbox">
+        </label>
+        <label
+          for="signup__country"
+          className="signup__signupBox__textbox"
+        >
           <i className="fas fa-lock"></i>
-          <select 
+          <select
+            id="signup__country"
             name="country" 
             value={country}
             onChange={(e) => setCountry(e.target.value)}
@@ -107,14 +131,12 @@ const SignUp = () => {
               ))
             }
           </select>
-        </div>
-        <input 
-          type="button" 
-          className="signup__btn" 
-          value="Sign Up" 
-          onClick={handleSubmit}
-          />
-      </div>
+        </label>
+        <button
+          type="submit" 
+          className="signup__signupBox__btn" 
+        >Sign Up</button>
+      </form>
     </div>
   );
 }
