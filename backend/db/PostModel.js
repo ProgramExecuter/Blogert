@@ -5,7 +5,7 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter a Title"],
     unique: [true, "This title is already being used"],
-    minlength: [4, "Title should have minimum length of 4 characters"]
+    minlength: [1, "Title should have minimum length of 1 characters"]
   },
   caption: {
     type: String,
@@ -18,24 +18,12 @@ const postSchema = new mongoose.Schema({
     required: [true, "Please Enter a Username"],
     unique: [true, "This username is taken"],
     lowercase: [true, "Username should be all lowercase"],
-    minlength: [2, "Username should atleast have 2 characters"]
+    minlength: [1, "Username should atleast have 1 characters"]
   },
   post_date: {
     type: Date,
     default: Date.now
-  },
-  likes: [
-    {
-      type: mongoose.Types.ObjectId,
-      ref: "User"
-    }
-  ],
-  comments: [
-    {
-      type: mongoose.Types.ObjectId,
-      ref: "Comment"
-    }
-  ]
+  }
 });
 
 export default mongoose.model("Post", postSchema);

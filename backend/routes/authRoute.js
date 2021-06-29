@@ -74,4 +74,10 @@ router.post("/login", async (req, res) => {
 
 });
 
+router.get("/logout", async (req, res) => {
+  await res.cookie('jwt', "", { maxAge : 0})
+          .then(() => res.status(200).json({message :"Logged Out"}))
+          .catch((e) => res.status(400).json(err));
+});
+
 export default router;

@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please Enter a Username"],
     unique: [true, "This username is taken"],
     lowercase: [true, "Username should be all lowercase"],
-    minlength: [2, "Username should atleast have 2 characters"]
+    minlength: [1, "Username should atleast have 1 characters"]
   },
   email: {
     type: String,
@@ -36,31 +36,7 @@ const userSchema = new mongoose.Schema({
   dateOfJoin: {
     type: Date,
     default: Date.now
-  },
-  followers: [{
-    type: mongoose.Types.ObjectId,
-    ref: "User"
-  }],
-  following: [{
-    type: mongoose.Types.ObjectId,
-    ref: "User"
-  }],
-  posts: [{
-    type: mongoose.Types.ObjectId,
-    ref: "Post"
-  }],
-  comments: [{
-    type: mongoose.Types.ObjectId,
-    ref: "Comment"
-  }],
-  likedPosts: [{
-    type: mongoose.Types.ObjectId,
-    ref: "Post"
-  }],
-  likedComments: [{
-    type: mongoose.Types.ObjectId,
-    ref: "Comment"
-  }]
+  }
 });
 
 export default mongoose.model("User", userSchema);
