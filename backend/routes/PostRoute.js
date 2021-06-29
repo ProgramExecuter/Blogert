@@ -4,7 +4,9 @@ import postDB from '../db/postModel.js';
 const router = express.Router();
 
 
+//
 // Get all Posts
+//
 router.get("/", (req, res) => {
 
   postDB.find({}, (err, foundPosts) => {
@@ -19,7 +21,9 @@ router.get("/", (req, res) => {
 });
 
 
+//
 // Create a new Post
+//
 router.post("/", async (req, res) => {
 
   const newPost = new postDB(req.body);
@@ -31,7 +35,9 @@ router.post("/", async (req, res) => {
 });
 
 
+//
 // Get a particular Post
+//
 router.get("/:post_id", async (req, res) => {
   
   await postDB.findById(req.params.post_id, (err, foundPost) => {
@@ -46,7 +52,9 @@ router.get("/:post_id", async (req, res) => {
 });
 
 
+//
 // Edit a particular Post
+//
 router.put("/:post_id", async (req, res) => {
   
   await postDB.findOneAndUpdate(req.params.post_id, {$set: req.body}, (err, updatedCampground) => {
@@ -61,7 +69,9 @@ router.put("/:post_id", async (req, res) => {
 });
 
 
+//
 // Delete a particular Post
+//
 router.delete("/:post_id", async (req, res) => {
   
   await postDB.findByIdAndRemove(req.params.post_id, (err) => {

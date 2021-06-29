@@ -1,9 +1,12 @@
 import express from 'express';
 import userDB from "../db/userModel.js";
+import postDB from "../db/postModel.js";
 
 const router = express.Router();
 
+//
 // Get a particular User
+//
 router.get("/:user_id", async (req, res) => {
   
   await userDB.findById(req.params.user_id, (err, foundUser) => {
@@ -18,8 +21,11 @@ router.get("/:user_id", async (req, res) => {
 });
 
 
+//
 // Edit a particular User Info
+//
 router.put("/:user_id", async (req, res) => {
+  //Get all the new data from the REQUEST
   let user = {};
   if(req.body.email)
     user.email = req.body.email;
@@ -34,6 +40,7 @@ router.put("/:user_id", async (req, res) => {
   if(req.body.password)
     user.password = req.body.password;
 
+  //Function to update the User Info
   const updateDB = async () => {
     await userDB.findByIdAndUpdate(req.params.user_id, {$set: user}, (err, updatedUser) => {
       if(err) {
@@ -46,6 +53,7 @@ router.put("/:user_id", async (req, res) => {
     .catch(err => (res.status.json(err)));
   };
 
+  //Hash the password before updating it
   if(req.body.password)
   {
     await bcrypt.hash(req.body.password, saltRounds, async (err, hash) => {
@@ -67,15 +75,33 @@ router.put("/:user_id", async (req, res) => {
 });
 
 
+//
 // Delete a particular User
+//
 router.delete("/:user_id", async (req, res) => {
-  
-  await userDB.findByIdAndRemove(req.params.user_id, (err) => {
+  //Find if the USER exists
+  await userDB.findById(req.params.user_id, async (err, foundUser) => {
     if(err) {
-      res.status(400).json(err);
+      //If the USER does not exist return the error message
+      res.status(404).json(err);
     }
     else {
-      res.status(200).json({"message": "Deleted user"});
+      //If the USER exists, then delete all the posts by that user
+      await postDB.deleteMany({_id: foundUser._id}, async (err) => {
+
+        //After deleting all the posts, delete the USER itself
+        await userDB.findByIdAndRemove(foundUser._id, (err) => {
+          if(err) {
+            //If the user is not deleted, send the err message
+            res.status(400).json(err);
+          }
+          else {
+            //If the user is deleted send this
+            res.status(200).json({"message": "Deleted user"});
+          }
+        })
+
+      });
     }
   })
 
