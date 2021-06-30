@@ -11,7 +11,7 @@ const User = () => {
   const [user, setUser] = useState({});
 
   const getUser = async () => {
-    const response = await axios.get(`${backend}/post/${userId}`);
+    const response = await axios.get(`${backend}/user/${userId}`);
     setUser(response.data);
   }
 
@@ -19,7 +19,7 @@ const User = () => {
     getUser();
   }, []);
 
-  if(Object.keys(user).length === 0)
+  if(!user || Object.keys(user).length === 0)
     return <Error />
   return <UserProfile user={user} />
 };

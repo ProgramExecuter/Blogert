@@ -11,10 +11,11 @@ const firebaseApp = firebase.initializeApp({
   measurementId: "G-6WNP78MBTW"
 });
 
-const db =  firebaseApp.firestore();
-const auth =  firebase.auth();
+// const db =  firebaseApp.firestore();
+// const auth =  firebase.auth();
 const storage = firebase.storage();
 
 const backend = "http://localhost:2000";
+const jwtToken = "you need to tokenize this data";
 
-export {storage, backend};
+export {storage, backend, jwtToken};

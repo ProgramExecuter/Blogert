@@ -13,7 +13,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const req = await axios({
+    await axios({
       method: 'post',
       url: `${backend}/auth/login`,
       data: {
@@ -27,7 +27,7 @@ const Login = () => {
       setCookie('jwt', token);
     })
     .catch(e => console.log(e));
-    console.log(req);
+    console.log();
   };
 
   return (

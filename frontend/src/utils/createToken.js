@@ -1,10 +1,11 @@
 import jwt from 'jsonwebtoken';
+import {jwtToken} from './firebase';
 
 //For 3 days(in seconds)
 const maxAge = 3 * 24 * 60 * 60;
 
 const createToken = (id) => {
-  return jwt.sign({id}, "you need to tokenize this data", {
+  return jwt.sign({id}, jwtToken, {
     expiresIn: maxAge
   });
 };

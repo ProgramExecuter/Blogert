@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import axios from "axios";
 import {storage, backend} from '../../utils/firebase';
+import getUserName from '../../utils/getUsername';
 import './createPost.css';
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [caption, setCaption] = useState("");
   const [picture, setPicture] = useState("");
-  
+  const username = getUserName();
   const [file, setFile] = useState(null);
 
   const handleSubmit = async (e) => {
@@ -28,7 +29,8 @@ const CreatePost = () => {
         data: {
           title,
           caption,
-          picture
+          picture,
+          username
         }
       })
       .catch(e => console.log(e));
