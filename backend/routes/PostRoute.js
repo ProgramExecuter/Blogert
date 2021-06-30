@@ -25,7 +25,7 @@ router.get("/", (req, res) => {
 // Create a new Post
 //
 router.post("/", async (req, res) => {
-
+  console.log(req.body);
   const newPost = new postDB(req.body);
 
   await newPost.save()

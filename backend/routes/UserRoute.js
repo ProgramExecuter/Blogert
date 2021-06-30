@@ -108,4 +108,32 @@ router.delete("/:user_id", async (req, res) => {
 });
 
 
+//
+// Get all the posts of a user
+//
+router.get("/:user_id/post", async (req, res) => {
+  //Find the USER
+  await userDB.findById(req.params.user_id, async (err, foundUser) => {
+    if(err) {
+      res.status(400).json(err)
+    }
+    else if(!foundUser) {
+      res.status(404).json({"message": "User not found"});
+    }
+    else
+    {
+      await postDB.find({username: foundUser.username}, (err, foundPosts) => {
+        if(err) {
+          res.status(400).json(err);
+        }
+        else {
+          res.status(200).json(foundPosts);
+        }
+      })
+      .catch(err => res.status(400).json(err));
+    }
+  })
+  .catch(err => res.status(400).json(err));
+});
+
 export default router;

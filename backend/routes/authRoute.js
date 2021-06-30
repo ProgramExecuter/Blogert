@@ -23,9 +23,9 @@ const createToken = (id) => {
 // Create a new User(SignUp)
 //
 router.post("/signup", async (req, res) => {
-
+  console.log(req.body);
   //Hashing the password before saving
-  await bcrypt.hash(req.body.password, saltRounds, async (err, hash) => {
+  bcrypt.hash(req.body.password, saltRounds, async (err, hash) => {
     if(err) {
       res.status(400).json(err);
     }
@@ -45,11 +45,12 @@ router.post("/signup", async (req, res) => {
             res.status(400).json(err);
           }
           res.status(200).json(newUser)
+          console.log(newUser);
         })
-        .catch(err => res.status(400).json(err));
+        .catch(
+          err => res.status(400).json(err));
     }
   })
-  .catch(err => res.status(400).json(err));
 
 });
 
@@ -59,11 +60,15 @@ router.post("/signup", async (req, res) => {
 //
 router.post("/login", async (req, res) => {
 
+  console.log(req.body);
   //Find if the USER is present in the database
   await userDB.findOne({username: req.body.username}, (err, foundUser) => {
     if(err) {
       //If the USER is not found then return error
-      res.status(404).json(err);
+      res.status(400).json(err);
+    }
+    else if(!foundUser) {
+      res.status(404).json({"message": "User not found"});
     }
     else {
       //If the user is present then check if password is correct
