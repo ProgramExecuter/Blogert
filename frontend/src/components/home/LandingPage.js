@@ -3,8 +3,8 @@ import './landingPage.css';
 
 const LandingPage = () => {
   return (
-    <div>
-      This is advertisement
+    <div className="landingPage">
+      
     </div>
   );
 };

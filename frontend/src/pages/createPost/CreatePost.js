@@ -1,43 +1,65 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import {storage, backend} from '../../utils/firebase';
-import getUserName from '../../utils/getUsername';
+import getUserName from '../../utils/getUserName';
 import './createPost.css';
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [caption, setCaption] = useState("");
   const [picture, setPicture] = useState("");
-  const username = getUserName();
+  const [progress, setProgress] = useState(0);
+  
+  const [username, setUsername] = useState(null);
+  
+  const func = async () => {
+    const ans = await getUserName();
+    setUsername(ans);
+  }
+
   const [file, setFile] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
     const name = new Date() + file.name;
-    const ref = storage.ref();
-    const uploadTask = ref.child(name).put(file);
+    const uploadTask = storage.ref(`postImages/${name}`).put(file);
+    uploadTask.on(
+      "state_change",
+      (snapshot) => {
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes)*100
+        );
+        setProgress(progress);
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        storage
+          .ref("postImages")
+          .child(name)
+          .getDownloadURL()
+          .then(async url => {
+            await axios({
+              method: "POST",
+              url: `${backend}/post`,
+              data: {
+                title,
+                caption,
+                picture: url,
+                username
+              }
+            })
+          })
+      }
+    );
 
-    uploadTask
-    .then(snapshot => snapshot.ref.getDownloadURL())
-    .then(async url => {
-      setPicture(url)
-
-      await axios({
-        method: 'post',
-        url: `${backend}/post`,
-        data: {
-          title,
-          caption,
-          picture,
-          username
-        }
-      })
-      .catch(e => console.log(e));
-
-    })
-    .catch(e => console.log(e));
   };
+
+  useEffect(() => {
+    func();
+  }, [])
 
   return (
     <div className="write">

@@ -7,11 +7,11 @@ import Error from '../../components/error/Error';
 import UserProfile from '../../components/user/UserProfile';
 
 const User = () => {
-  const { userId } = useParams();
-  const [user, setUser] = useState({});
+  const { username } = useParams();
+  const [user, setUser] = useState(null);
 
   const getUser = async () => {
-    const response = await axios.get(`${backend}/user/${userId}`);
+    const response = await axios.get(`${backend}/user/${username}`);
     setUser(response.data);
   }
 

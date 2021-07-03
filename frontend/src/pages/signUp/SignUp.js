@@ -30,7 +30,7 @@ const SignUp = () => {
       }
     })
     .then(data => {
-      const token = createToken(data.data._id);
+      const token = createToken(data.data.username);
       setCookie('jwt', token);
     })
     .catch(e => console.log(e));

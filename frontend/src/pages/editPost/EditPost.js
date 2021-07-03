@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {useParams} from 'react-router';
 import axios from "axios";
 import {storage, backend} from '../../utils/firebase';
-import '../createPost/createPost.css';
+import './editPost.css';
 
 const EditPost = () => {
   const { postId } = useParams();
@@ -12,11 +12,13 @@ const EditPost = () => {
   const [caption, setCaption] = useState("");
   const [picture, setPicture] = useState("");
 
+  const [progress, setProgress] = useState(0);
+
   const getPost = async () => {
     const response = await axios.get(`${backend}/post/${postId}`);
     setData(response.data);
     setTitle(response.data.title);
-    setPicture(response.data.url);
+    setPicture(response.data.picture);
     setCaption(response.data.caption);
   };
 
@@ -30,32 +32,41 @@ const EditPost = () => {
     e.preventDefault();
     if(file) {
       const name = new Date() + file.name;
-      const ref = storage.ref();
-      
-      const uploadTask = ref.child(name).put(file);
-      uploadTask
-      .then(snapshot => snapshot.ref.getDownloadURL())
-      .then(async url => {
-        setPicture(url)
-
-        await axios({
-          method: 'post',
-          url: `${backend}/post/${postId}/edit`,
-          data: {
-            title,
-            caption,
-            picture
-          }
-        })
-        .catch(e => console.log(e));
-        
-      })
-      .catch(e => console.log(e));
+      const uploadTask = storage.ref(`postImages/${name}`).put(file);
+      uploadTask.on(
+        "state_change",
+        (snapshot) => {
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes)*100
+          );
+          setProgress(progress);
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          storage
+            .ref("postImages")
+            .child(name)
+            .getDownloadURL()
+            .then(async url => {
+              await axios({
+                method: "put",
+                url: `${backend}/post/${postId}`,
+                data: {
+                  title,
+                  caption,
+                  picture: url
+                }
+              })
+            })
+        }
+      );
     }
     else {
       await axios({
         method: 'put',
-        url: `http://localhost:2000/post/${postId}`,
+        url: `${backend}/post/${postId}`,
         data: {
           title,
           caption,
@@ -67,17 +78,17 @@ const EditPost = () => {
   };
 
   return (
-    <div className="write">
+    <div className="update">
       <img
-        className="write__img"
+        className="update__img"
         src={
           file ? URL.createObjectURL(file) : data.picture
         }
       alt="" />
-      <form className="write__form" onSubmit={handleSubmit}>
-        <div className="write__form__group">
+      <form className="update__form" onSubmit={handleSubmit}>
+        <div className="update__form__group">
           <label htmlFor="fileInput">
-            <i className="writeIcon fas fa-plus"></i>
+            <i className="updateIcon fas fa-plus"></i>
           </label>
           <input
             type="file"
@@ -88,27 +99,26 @@ const EditPost = () => {
           <input
             type="text"
             placeholder="Title"
-            className="writeInput"
+            className="updateInput"
             name="title"
-            // autoFocus={true}
             value={title}
             onChange={e=>setTitle(e.target.value)}
             required
           />
         </div>
-        <div className="write__form__group">
+        <div className="update__form__group">
           <textarea
             placeholder="Tell your story..."
             type="text"
             name="caption"
-            className="writeInput writeText"
+            className="updateInput updateText"
             value={caption}
             onChange={e=>setCaption(e.target.value)}
             required
           ></textarea>
         </div>
-        <button className="write__form__submit" type="submit">
-          Publish
+        <button className="update__form__submit" type="submit">
+          Update
         </button>
       </form>
     </div>

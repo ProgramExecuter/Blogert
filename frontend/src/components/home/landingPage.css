@@ -1,0 +1,5 @@
+.landingPage {
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/blogert-df45a.appspot.com/o/landing.jpg?alt=media&token=aae6cb17-794a-452f-9b71-9f24ed14a60a');
+  object-fit: cover;
+  height: 93.4vh;
+}

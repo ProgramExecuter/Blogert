@@ -1,9 +1,21 @@
+import axios from 'axios';
 import React from 'react';
+import { backend } from '../../utils/firebase';
+import getUserName from '../../utils/getUserName';
 import './particularPost.css';
 
 const ParticularPost = ({data}) => {
+  const username = getUserName();
+
+  const handleDelete = async (e) => {
+    await axios({
+      method: "delete",
+      url: `${backend}/post/${data._id}`
+    })
+  }
+
   return (
-    <div className="post">
+    <div className="post" key={data._id}>
       <div className="post__header">
         <h1>{data.title}</h1>
       </div>
@@ -20,6 +32,13 @@ const ParticularPost = ({data}) => {
           </p>
         </div>
       </div>
+      {data.username === username && (
+        <div class="post__buttons">
+          <button><a href={`./${data._id}/edit`}>Update</a></button>
+          <button onClick={handleDelete}>Delete</button>
+        </div>
+        )
+      }
     </div>
   );
 };

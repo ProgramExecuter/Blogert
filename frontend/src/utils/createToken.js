@@ -4,8 +4,8 @@ import {jwtToken} from './firebase';
 //For 3 days(in seconds)
 const maxAge = 3 * 24 * 60 * 60;
 
-const createToken = (id) => {
-  return jwt.sign({id}, jwtToken, {
+const createToken = (username) => {
+  return jwt.sign({username}, jwtToken, {
     expiresIn: maxAge
   });
 };

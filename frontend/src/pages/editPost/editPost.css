@@ -1,8 +1,8 @@
-.write {
+.update {
   padding-top: 50px;
 }
 
-.writeImg {
+.update__img {
   margin-left: 150px;
   width: 70vw;
   height: 250px;
@@ -10,17 +10,17 @@
   object-fit: cover;
 }
 
-.writeForm {
+.update__form {
   position: relative;
 }
 
-.writeFormGroup {
+.update__form__group {
   margin-left: 150px;
   display: flex;
   align-items: center;
 }
 
-.writeIcon {
+.updateIcon {
   width: 25px;
   height: 25px;
   border-radius: 50%;
@@ -33,23 +33,23 @@
   cursor: pointer;
 }
 
-.writeInput {
+.updateInput {
   font-size: 30px;
   border: none;
   padding: 20px;
   width: 70vw;
 }
 
-.writeInput:focus {
+.updateInput:focus {
   outline: none;
 }
 
-.writeText {
+.updateText {
   font-size: 20px;
   height: 100vh;
 }
 
-.writeSubmit {
+.update__form__submit {
   position: absolute;
   top: 20px;
   right: 50px;

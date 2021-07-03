@@ -21,7 +21,7 @@
 
 .post__info__image {
   display: block;
-  width: 100%;
+  max-height: 75vh;
   object-fit: contain;
   margin: 1rem auto;
 }
@@ -45,28 +45,17 @@
   color: red;
 }
 
-.post__info__comments {
-  width: 100%;
-  border: 0.1rem solid gray;
-  padding: 1rem;
-  margin: 1rem auto;
-  box-sizing: border-box;
+.post__buttons {
+  display: flex;
+  align-items:center;
+  justify-content: space-around;
 }
 
-.post__info__comments > p {
-  margin-bottom: 0.5rem;
-}
-
-.post__info__comments > p > b {
-  margin-right: 0.5rem;
-  font-size: 1.1rem;
-}
-
-.post__info__comments > p > b > span {
-  margin-right: 1rem;
-  color:darkturquoise
-}
-
-.post__info__comments > p > b > span > span {
-  color: red
+.post__buttons > button, .post__buttons > button > a {
+  cursor: pointer;
+  width: 8rem;
+  height: 2rem;
+  border-radius: 2rem;
+  color: white;
+  background-color: #0069D9;
 }

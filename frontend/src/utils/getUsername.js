@@ -1,16 +1,20 @@
-import axios from 'axios';
+import Cookies from 'js-cookie';
+import jwt from 'jsonwebtoken';
+import { jwtToken } from './firebase';
 import isUserLogin from './isUserLogin';
-import {backend} from './firebase';
-import getUserId from './getUserId';
 
-const getUserName = async () => {
+const getUserName = () => {
+  let user = null;
   if(isUserLogin()) {
-    const userId = getUserId();
-    const response = await axios.get(`${backend}/user/${userId}`);
-    if(!response.data)
-      return null;
-    return response.data.username;
+    var token = Cookies.get().jwt;
+    jwt.verify(token, jwtToken, (err, decoded) => {
+      if(err)
+        console.log(err);
+      else
+        user = decoded.username;
+    });
   }
+  return user;
 };
 
 export default getUserName;

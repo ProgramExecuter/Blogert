@@ -1,14 +1,12 @@
-import React from 'react';
-import LandingPage from '../../components/home/LandingPage';
-import HomePage from '../../components/home/HomePage';
-import isUserLogin from '../../utils/isUserLogin';
 import './home.css';
+import HomePage from '../../components/home/HomePage';
+import LandingPage from '../../components/home/LandingPage';
+import isUserLogin from '../../utils/isUserLogin';
 
 const Home = () => {
   if(isUserLogin())
-    return <HomePage />
-  else
-    return <LandingPage />
+    return <HomePage />;
+  return <LandingPage />
 };
 
 export default Home;
