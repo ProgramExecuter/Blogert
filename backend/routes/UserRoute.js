@@ -5,13 +5,16 @@ import postDB from "../db/postModel.js";
 const router = express.Router();
 
 //
-// Get a particular User
+// Get a particular user with username
 //
-router.get("/:user_id", async (req, res) => {
-  
-  await userDB.findById(req.params.user_id, (err, foundUser) => {
+router.get("/:username", async(req, res) => {
+
+  await userDB.findOne({username: req.params.username}, (err, foundUser) => {
     if(err) {
-      res.status(404).json(err);
+      res.status(400).json(err);
+    }
+    else if(!foundUser) {
+      res.status(400).json({"message": "User not found"});
     }
     else {
       res.status(200).json(foundUser);
@@ -19,7 +22,6 @@ router.get("/:user_id", async (req, res) => {
   });
 
 });
-
 
 //
 // Edit a particular User Info
@@ -111,9 +113,9 @@ router.delete("/:user_id", async (req, res) => {
 //
 // Get all the posts of a user
 //
-router.get("/:user_id/post", async (req, res) => {
+router.get("/:username/post", async (req, res) => {
   //Find the USER
-  await userDB.findById(req.params.user_id, async (err, foundUser) => {
+  await userDB.findOne({username: req.params.username}, async (err, foundUser) => {
     if(err) {
       res.status(400).json(err)
     }
@@ -122,9 +124,12 @@ router.get("/:user_id/post", async (req, res) => {
     }
     else
     {
-      await postDB.find({username: foundUser.username}, (err, foundPosts) => {
+      await postDB.find({username: req.params.username}, (err, foundPosts) => {
         if(err) {
           res.status(400).json(err);
+        }
+        else if(!foundPosts) {
+          res.status(404).json([]);
         }
         else {
           res.status(200).json(foundPosts);

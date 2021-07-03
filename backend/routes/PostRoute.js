@@ -9,14 +9,14 @@ const router = express.Router();
 //
 router.get("/", (req, res) => {
 
-  postDB.find({}, (err, foundPosts) => {
+  postDB.find({},(err, foundPosts) => {
     if(err) {
       res.status(400).json(err);
     } else {
       res.status(200).json(foundPosts);
     }
   })
-  .catch(e => res.status(400).json(e));
+  .catch(err => res.status(200).json(err));
 
 });
 
@@ -25,7 +25,6 @@ router.get("/", (req, res) => {
 // Create a new Post
 //
 router.post("/", async (req, res) => {
-  console.log(req.body);
   const newPost = new postDB(req.body);
 
   await newPost.save()
@@ -56,15 +55,21 @@ router.get("/:post_id", async (req, res) => {
 // Edit a particular Post
 //
 router.put("/:post_id", async (req, res) => {
-  
-  await postDB.findOneAndUpdate(req.params.post_id, {$set: req.body}, (err, updatedCampground) => {
-    if(err) {
-        res.status(502).json(err);
-    } else {
+  await postDB.findByIdAndUpdate(
+    req.params.post_id,
+    {
+      title: req.body.title,
+      picture: req.body.picture,
+      caption: req.body.caption
+    },
+    (err, updatedCampground) => {
+      if(err) {
+        res.status(400).json(err);
+      }
+      else {
         res.status(200).json(updatedCampground);
-    }
+      }
   })
-  .catch(err => res.status(400).json(err));
 
 });
 
